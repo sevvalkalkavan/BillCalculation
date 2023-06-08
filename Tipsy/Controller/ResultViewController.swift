@@ -10,21 +10,24 @@ import UIKit
 
 class ResultViewController: UIViewController {
 
+    @IBOutlet weak var resultValue: UILabel!
+    @IBOutlet weak var explainLabel: UILabel!
+    
+    var split : String = ""
+    var tip : Int = 0
+    var result : Int = 0
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        explainLabel.text = "Split between \(split) people, with \(tip)% tip."
+        resultValue.text = String(result)
 
-        // Do any additional setup after loading the view.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    @IBAction func recalculatedPressed(_ sender: UIButton) {
+        self.dismiss(animated: true)
     }
-    */
+    
 
 }
