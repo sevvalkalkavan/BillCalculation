@@ -18,10 +18,10 @@ class ViewController: UIViewController {
     @IBOutlet weak var tip20: UIButton!
     @IBOutlet weak var splitLabel: UILabel!
     
-    var tip : Int = 0
+    var tip : Double = 0.0
     var split : Int = 0
-    var result : Int = 0
-    var bill : Int = 0
+    var finalResult : String = "0.0"
+    var bill : Double = 0.0
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -62,18 +62,23 @@ class ViewController: UIViewController {
     
     @IBAction func calculatePressed(_ sender: UIButton) {
         performSegue(withIdentifier: "toResultVC", sender: self)
-        print(split)
-        bill = Int(billValue.text!) ?? 0
-        result = bill * (1 + tip) / split
+        
+        let billTotal = billValue.text!
+        if billTotal != "" {
+            bill = Double(billTotal)!
+            let result = bill * (1 + tip) / Double(split)
+            finalResult = String(format: "%.2f", result)
+        }
+        
     }
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toResultVC" {
             let destinationVC = segue.destination as! ResultViewController
-            destinationVC.tip = tip
-            destinationVC.split = splitLabel.text!
-            destinationVC.result = result
+            destinationVC.tip = Int(tip * 100)
+            destinationVC.split = split
+            destinationVC.result = finalResult
         }
     }
     
